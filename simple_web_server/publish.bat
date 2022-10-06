@@ -1,0 +1,1 @@
+xcopy publish bin\Debug\net6.0\SimpleWebServer /E/H/C/I/Y
