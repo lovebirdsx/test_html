@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Flexbox Example</title>
+		<style>
+			.container {
+				display: flex;
+				flex-direction: column;
+				height: 100vh;
+				justify-content: center;
+				align-items: center;
+			}
+			.level1 {
+				display: flex;
+				flex: 1;
+				width: 200px;
+				height: 200px;
+				background-color: lightslategray;
+				border: 1px solid black;
+				justify-content: center;
+				align-items: center;
+			}
+			.level1-2 {
+				display: flex;
+				flex: 1;
+				width: 200px;
+				height: 0;
+				overflow: auto;
+				background-color: lightslategray;
+				border: 1px solid black;
+				justify-content: center;
+				align-items: center;
+			}
+			.level2 {
+				display: flex;
+				flex: 1;
+				width: 200px;
+				height: 400px;
+				background-color: rgb(153, 119, 145);
+				border: 1px solid black;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="level1"><h1>Title1</h1></div>
+			<div class="level1">Item 2</div>
+			<div class="level1">Item 3</div>
+			<div class="level1-2"><div class="level2">Item 4</div></div>
+		</div>
+	</body>
+</html>
