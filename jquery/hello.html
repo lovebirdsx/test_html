@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 示例</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<p id="text">这是一个段落。</p>
+<button id="changeText">改变文本</button>
+<button id="toggleAnimation">切换动画</button>
+
+<script>
+    // 当文档加载完成后执行
+    $(document).ready(function() {
+        // 改变文本按钮点击事件
+        $('#changeText').click(function() {
+            $('#text').text('文本已改变！');
+        });
+
+        // 切换动画按钮点击事件
+        $('#toggleAnimation').click(function() {
+            $('#text').fadeToggle();
+        });
+    });
+</script>
+
+</body>
+</html>
