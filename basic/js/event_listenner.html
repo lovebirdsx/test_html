@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件回调</title>
+  </head>
+  <body>
+    <h1>事件回调测试</h1>
+    <div><button id="btn1">触发回调</button></div>
+    <div><button id="btn2">切换是否回调</button></div>
+    <div id="content"></div>
+    <script>
+      const output = document.getElementById('content');
+      function updateOutput(message) {
+        output.innerText = message;
+      }
+
+      let btn1Listened = true;
+      const btn1 = document.getElementById('btn1');
+      const btn1ClickHandler = function () {
+        alert('Button Clicked');
+      };
+
+      function refresh() {
+        if (btn1Listened) {
+          btn1.addEventListener('click', btn1ClickHandler);
+          console.log('Button 1 Added');
+        } else {
+          btn1.removeEventListener('click', btn1ClickHandler);
+          console.log('Button 1 Removed');
+        }
+
+        updateOutput('Button 1 Listened: ' + btn1Listened);
+      }
+
+      btn1.addEventListener('click', btn1ClickHandler);
+
+      const btn2 = document.getElementById('btn2');
+      btn2.addEventListener('click', function () {
+        btn1Listened = !btn1Listened;
+        refresh();
+      });
+
+      refresh();
+    </script>
+  </body>
+</html>
