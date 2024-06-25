@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>测试Request Idle Callback</title>
+    </head>
+    <body>
+        <h1>测试Request Idle Callback</h1>
+        <p>
+            通过SetTimeout和RequestIdleCallback来执行一些耗时任务，观察两者的执行情况。
+        </p>
+            点击下面的按钮，通过控制台(F12 -> Console)查看输出。
+        <p>
+        </p>
+        <p>
+            <div><button id="btn1">通过SetTimeout来执行</button></div>
+        </p>
+        <p>
+            <div><button id="btn2">通过RequestIdleCallback来执行</button></div>
+        </p>
+        <script>
+            async function wait(time) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, time);
+                });
+            }
+
+            function busyWait(id, timeout) {
+                console.log(`[${id}] busyWait start, timeout = ${timeout}`);
+                const start = Date.now();
+                while (Date.now() - start < timeout) {}
+                console.log(`[${id}] busyWait end`);
+            }
+
+            async function asyncWait(id, timeout) {
+                console.log(`[${id}] asyncWait start, timeout = ${timeout}`);
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        console.log(`[${id}] asyncWait end`);
+                        resolve();
+                    }, timeout);
+                });
+            }
+
+            async function testLongRunWithSetTimeout() {
+                const RUN_COUNT = 3;
+                for (let i = 0; i < RUN_COUNT; i++) {
+                    setTimeout(() => {
+                        busyWait(i, 0);
+                    }, 0);
+                }
+
+                for (let i = 0; i < RUN_COUNT; i++) {
+                    await asyncWait(i, 0);
+                }
+            }
+
+            async function testLongRunWithRequestIdleCallback() {
+                const RUN_COUNT = 3;
+                for (let i = 0; i < RUN_COUNT; i++) {
+                    requestIdleCallback(() => {
+                        busyWait(i, 100);
+                    });
+                }
+
+                for (let i = 0; i < RUN_COUNT; i++) {
+                    await asyncWait(i, 50);
+                }
+            }
+
+            document
+                .getElementById('btn1')
+                .addEventListener('click', testLongRunWithSetTimeout);
+            document
+                .getElementById('btn2')
+                .addEventListener('click', testLongRunWithRequestIdleCallback);
+        </script>
+    </body>
+</html>
