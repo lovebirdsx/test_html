@@ -1,0 +1,147 @@
+/* body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+nav {
+  background-color: #444;
+  color: #fff;
+  padding: 10px;
+}
+
+nav a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+section {
+  padding: 10px;
+  background-color: #fff;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  line-height: 1.6;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+} */
+
+:root {
+	/* 背景颜色 */
+	--background: #1E1E1E;
+  --background-shadow: #333333;
+	--foreground: #BBBBBB;
+	--border-color: #3794FF;
+
+	/* 字体颜色 */
+	--primary-text-color: #BBBBBB;
+	--secondary-text-color: #BBBBBB;
+
+	/* 字体大小 */
+	--font-size: 15;
+
+	/* 链接颜色 */
+	--link-color: cyan;
+
+	/* 按钮颜色 */
+	--button-background: #3794FF;
+	--button-hover-background: #3780E0;
+	--button-foreground: white;
+
+	/* 输入框颜色 */
+	--input-background: #333333;
+	--input-foreground: #BBBBBB;
+	--input-border: #555555;
+	--input-focus-border: #3794FF;
+}
+
+body {
+	background-color: var(--background);
+	color: var(--primary-text-color);
+	margin: 0;
+	padding: 0;
+	font-family: var(--vscode-font-family, sans-serif);
+	font-size: var(--font-size);
+}
+
+a {
+	color: var(--link-color);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+button {
+	background-color: var(--button-background);
+	color: var(--button-foreground);
+	border: none;
+	padding: 0.5em 1em;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: var(--button-hover-background);
+}
+
+input {
+	background-color: var(--input-background);
+	color: var(--input-foreground);
+	border: 1px solid var(--input-border);
+	padding: 0.4em;
+	margin: 0.1em 0;
+	border-radius: 2px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border: 1px solid red;
+  outline: none;
+}
+
+input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.container {
+	border: 1px solid var(--border-color);
+	padding: 1em;
+	margin: 1em;
+	background-color: var(--background);
+	color: var(--foreground);
+}
+
+section {
+  padding: 10px;
+  background-color: var(--background);
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--background-shadow);
+}
