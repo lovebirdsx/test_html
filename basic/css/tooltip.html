@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Css 选择器</title>
+    <style>
+      /* Tooltip container */
+      .vsplay-tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      /* Tooltip text */
+      .vsplay-tooltip .tooltip-text {
+        visibility: hidden;
+        width: 200px; /* Fixed width */
+        background-color: black;
+        color: white;
+        text-align: left;
+        padding: 0.5em;
+        border-radius: 4px;
+        font-size: 16px;
+        border: 1px solid black;
+
+        /* Positioning */
+        position: absolute;
+        z-index: 1;
+        top: calc(100% + 5px); /* Position below the element with 5px gap */
+        left: 0; /* Align to the left of the parent */
+        transform: translateY(0%);
+
+        /* Fade-in effect */
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      /* Show the vsplay-tooltip text when hovering */
+      .vsplay-tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tooltip</h1>
+    <div>
+      <span class="vsplay-tooltip">
+        Hover over me
+        <span class="tooltip-text"
+          >This is the vsplay-tooltip content styled according to your theme.</span
+        >
+      </span>
+    </div>
+    <div>
+      <button class="vsplay-tool-button vsplay-tooltip">
+        <span class="icon">🛠️</span>
+        <span class="tooltip-text">This is a tool button vsplay-tooltip.</span>
+      </button>
+    </div>
+  </body>
+</html>
