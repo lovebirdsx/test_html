@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebView</title>
+    <style>
+      #contextMenu {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      #contextMenu li {
+        padding: 8px 12px;
+        list-style: none;
+        cursor: pointer;
+      }
+      #contextMenu li:hover {
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>右键点击显示菜单</h1>
+    <ul id="contextMenu">
+      <li id="menuOption1">选项 1</li>
+      <li id="menuOption2">选项 2</li>
+      <li id="menuOption2">选项 3</li>
+      <li id="menuOption2">选项 4</li>
+    </ul>
+
+    <script>
+      const contextMenu = document.getElementById("contextMenu");
+
+      window.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        contextMenu.style.display = "block";
+        contextMenu.style.left = `${e.pageX}px`;
+        contextMenu.style.top = `${e.pageY}px`;
+      });
+
+      window.addEventListener("click", () => {
+        contextMenu.style.display = "none";
+      });
+
+      document.getElementById("menuOption1").addEventListener("click", () => {
+        vscode.postMessage({ command: "menuOption1" });
+      });
+
+      document.getElementById("menuOption2").addEventListener("click", () => {
+        vscode.postMessage({ command: "menuOption2" });
+      });
+    </script>
+  </body>
+</html>
