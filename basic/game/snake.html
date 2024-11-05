@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇游戏</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #ecf0f1;
+            user-select: none;
+        }
+        #gameContainer {
+            position: relative;
+            border: 2px solid #ecf0f1;
+            background-color: #34495e;
+        }
+        #gameCanvas {
+            display: block;
+            background-color: #1abc9c;
+        }
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 24px;
+            display: none;
+        }
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            background: rgba(44, 62, 80, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+        <div id="score">分数: 0</div>
+        <div id="message">按空格键开始/重启游戏</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const message = document.getElementById('message');
+        const scoreElement = document.getElementById('score');
+
+        const gridSize = 20;
+        const canvasSize = canvas.width;
+        let snake = [];
+        let direction = { x: 0, y: 0 };
+        let food = {};
+        let gameInterval;
+        let score = 0;
+        let gameRunning = false;
+
+        function init() {
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+            direction = getRandomDirection();
+            placeFood();
+            score = 0;
+            scoreElement.textContent = `分数: ${score}`;
+            message.style.display = 'none';
+        }
+
+        function getRandomDirection() {
+            const dirs = [
+                { x: 1, y: 0 },
+                { x: -1, y: 0 },
+                { x: 0, y: 1 },
+                { x: 0, y: -1 }
+            ];
+            return dirs[Math.floor(Math.random() * dirs.length)];
+        }
+
+        function placeFood() {
+            food.x = Math.floor(Math.random() * (canvasSize / gridSize));
+            food.y = Math.floor(Math.random() * (canvasSize / gridSize));
+            // Ensure food doesn't spawn on the snake
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    placeFood();
+                    break;
+                }
+            }
+        }
+
+        function drawGrid() {
+            ctx.fillStyle = '#1abc9c';
+            ctx.fillRect(0, 0, canvasSize, canvasSize);
+        }
+
+        function drawSnake() {
+            ctx.fillStyle = '#ecf0f1';
+            for (let segment of snake) {
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            }
+        }
+
+        function drawFood() {
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+        }
+
+        function update() {
+            const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+
+            // Wall collision
+            if (head.x < 0 || head.x >= canvasSize / gridSize || head.y < 0 || head.y >= canvasSize / gridSize) {
+                endGame();
+                return;
+            }
+
+            // Self collision
+            for (let segment of snake) {
+                if (segment.x === head.x && segment.y === head.y) {
+                    endGame();
+                    return;
+                }
+            }
+
+            snake.unshift(head);
+
+            // Check food collision
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                scoreElement.textContent = `分数: ${score}`;
+                placeFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function draw() {
+            drawGrid();
+            drawFood();
+            drawSnake();
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+        }
+
+        function startGame() {
+            init();
+            gameInterval = setInterval(gameLoop, 100);
+            gameRunning = true;
+        }
+
+        function endGame() {
+            clearInterval(gameInterval);
+            gameRunning = false;
+            message.textContent = '游戏结束！按空格键重新开始';
+            message.style.display = 'block';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (key === ' ' && !gameRunning) {
+                startGame();
+                return;
+            }
+
+            if (!gameRunning) return;
+
+            switch (key) {
+                case 'w':
+                    if (direction.y === 0) {
+                        direction = { x: 0, y: -1 };
+                    }
+                    break;
+                case 'a':
+                    if (direction.x === 0) {
+                        direction = { x: -1, y: 0 };
+                    }
+                    break;
+                case 's':
+                    if (direction.y === 0) {
+                        direction = { x: 0, y: 1 };
+                    }
+                    break;
+                case 'd':
+                    if (direction.x === 0) {
+                        direction = { x: 1, y: 0 };
+                    }
+                    break;
+            }
+        });
+
+        // Show start message
+        message.style.display = 'block';
+    </script>
+</body>
+</html>
