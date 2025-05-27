@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pollution Example</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+      h4 {
+        font-size: 20px;
+      }
+      .polluted {
+        color: gray;
+      }
+      section {
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <code
+        >虽然下面一行加入了class="polluted"，但由于下面的文本被h4样式影响，导致其字体大小也变为20px。</code
+      >
+      <h4 class="polluted">这个段落的字体大小受到了全局污染的影响。</h4>
+    </section>
+    <section>
+      <code>正确的做法是使用更具体的选择器来避免全局污染。</code>
+      <p class="polluted">这个是正常的</p>
+    </section>
+  </body>
+</html>

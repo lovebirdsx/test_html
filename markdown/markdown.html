@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>网页内嵌Markdown示例</title>
+  </head>
+  <body>
+    <h1>Markdown 示例</h1>
+    <textarea id="markdown" style="display: none">
+# 这是标题
+
+这是 **加粗** 的文字，下面是一个列表：
+
+- 项目一
+- 项目二
+  </textarea>
+    <div id="content"></div>
+    <script>
+      const md = document.getElementById("markdown").value;
+      document.getElementById("content").innerHTML = marked.parse(md);
+    </script>
+  </body>
+</html>
