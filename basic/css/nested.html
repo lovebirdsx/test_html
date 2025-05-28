@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nested Selectors</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .paragraph {
+        color: turquoise;
+        header & {
+          color: green;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>嵌套选择器示例</h1>
+    <pre><code>
+      .paragraph {
+        color: turquoise;
+        header & {
+          color: green;
+        }
+      }
+    </code></pre>
+    <p class="paragraph">
+      这个没有在 header 中的段落，颜色是 turquoise。
+    </p>
+    <header>
+      <p class="paragraph">
+        这个在 header 中的段落，颜色是 green。
+      </p>
+    </header>
+  </body>
+</html>
